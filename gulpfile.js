@@ -16,5 +16,12 @@ gulp.task('move-js', function () {
 })
 
 gulp.teask('launch-server', ['compile-sass', function () {
-  browserSync
+  browserSync.init({
+    server: './src'
+  })
+  gulp.watch(['node_modules/bootstrap/scss/bootstrap.scss', 'src/scss/*.scss'],
+['compile-sass'])
+  gulp.watch('src/*html').on('change', browserSync.reload)
 }])
+
+gulp.task('default', ['move-js', 'launch-server'])
